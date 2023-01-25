@@ -1,10 +1,14 @@
-// mock out Sequelize
-const sequelize = jest.mock("sequelize");
-
-const app = require("../server.js");
-const request = require("supertest");
-
 describe("server", () => {
+  const db = jest.mock("../app/models", () => ({
+    sequelize: {
+      sync: jest.fn()
+    }
+  }));
+
+  const app = require("../server.js");
+  const request = require("supertest");
+
+
   it("responds with welcome message", async () => {
     await request(app)
       .get("/")
