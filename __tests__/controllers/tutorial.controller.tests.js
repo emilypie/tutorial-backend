@@ -17,7 +17,7 @@ describe("tutorials controller", () => {
     it("calls findAll without query", async () => {
       db.tutorial.findAll = jest.fn().mockResolvedValue(Promise.resolve([]));
       await request(app)
-        .get("/api/tutorials")
+        .get("/tutorial/tutorials")
         .expect(200)
         .then((response) => {
           expect(db.tutorial.findAll).toHaveBeenCalled();
@@ -27,7 +27,7 @@ describe("tutorials controller", () => {
     it("calls findAll with query", async () => {
       db.tutorial.findAll = jest.fn().mockResolvedValue(Promise.resolve([]));
       await request(app)
-        .get("/api/tutorials?title=Automated")
+        .get("/tutorial/tutorials?title=Automated")
         .expect(200)
         .then((response) => {
           expect(db.tutorial.findAll).toHaveBeenCalledWith({
@@ -45,7 +45,7 @@ describe("tutorials controller", () => {
         .fn()
         .mockResolvedValue(Promise.resolve([testTutorial]));
       await request(app)
-        .get("/api/tutorials")
+        .get("/tutorial/tutorials")
         .expect(200)
         .then((response) => {
           expect(response.body).toHaveLength(1);
@@ -60,7 +60,7 @@ describe("tutorials controller", () => {
           Promise.reject(new Error("Fake error from test"))
         );
       await request(app)
-        .get("/api/tutorials")
+        .get("/tutorial/tutorials")
         .expect(500)
         .then((response) => {
           expect(response.body.message).toBe("Fake error from test");
