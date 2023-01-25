@@ -2,6 +2,9 @@ describe("server", () => {
   const db = jest.mock("../app/models", () => ({
     sequelize: {
       sync: jest.fn()
+    },
+    Sequelize: {
+      Op: jest.fn()
     }
   }));
 
